@@ -6,8 +6,8 @@ view = webkit.WebView()
 win = gtk.Window(gtk.WINDOW_TOPLEVEL)
 
 win.connect("destroy", gtk.main_quit)
-win.set_keep_above(True)
-win.fullscreen()
+#win.set_keep_above(True)
+#win.fullscreen()
 
 settings = view.get_settings()
 settings.set_property('enable-default-context-menu', False)
@@ -20,6 +20,6 @@ scroller.add(view)
 
 win.add(view)
 win.show_all()
-view.open("http://localhost:3000/login")
+view.open("http://localhost:3000")
 
 gtk.main()
