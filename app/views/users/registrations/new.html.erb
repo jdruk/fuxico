@@ -16,7 +16,7 @@
           <div class="field">
             <div class="ui left icon input">
               <i class="user icon"></i>
-              <%= f.email_field :name, autofocus: true, placeholder: 'Nome' %>
+              <%= f.text_field :name, autofocus: true, placeholder: 'Nome' %>
             </div>
           </div>
 
@@ -45,7 +45,7 @@
           </div>
 
           <div class="actions">
-            <%= f.submit "Entrar", class: 'ui fluid large teal submit button' %>
+            <%= f.submit "Confirmar", class: 'ui fluid large teal submit button' %>
           </div>
           <div class="field">
             <%= render "users/shared/links" %>

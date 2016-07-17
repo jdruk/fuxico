@@ -10,9 +10,11 @@
 <body>
 
 <% if user_signed_in? %>
+  <p><%= current_user.name %></p>
   <ul>
     <li><%= link_to 'Grupos', groups_path %></li>
     <li><%= link_to 'Salas', themes_path %></li>
+    <li><%= link_to 'Editar perfil', edit_user_registration_path %></li>
     <li><%= link_to 'Sair', destroy_user_session_path, method: :delete %></li>
   </ul>
 <% end %>
