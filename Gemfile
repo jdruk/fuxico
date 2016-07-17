@@ -21,3 +21,4 @@ end
 
 gem 'devise'
 gem 'carrierwave'
+gem 'rails-i18n'

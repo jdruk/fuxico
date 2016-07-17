@@ -9,6 +9,15 @@
 </head>
 <body>
 
+<% if user_signed_in? %>
+  <ul>
+    <li><%= link_to 'Grupos', groups_path %></li>
+    <li><%= link_to 'Salas', themes_path %></li>
+    <li><%= link_to 'Sair', destroy_user_session_path, method: :delete %></li>
+  </ul>
+<% end %>
+
+
 <%= yield %>
 
 </body>
