@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  message: MyText
+  attached_file: MyString
+  user_id: 
+  private_for: 1
+  room_id: 
+  group_id: 
+
+two:
+  message: MyText
+  attached_file: MyString
+  user_id: 
+  private_for: 1
+  room_id: 
+  group_id: 
