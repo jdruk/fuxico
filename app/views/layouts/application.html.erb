@@ -57,90 +57,10 @@
 
 <% if user_signed_in? %>
   <div class="pusher" style="padding-left: 180px;">
-    <% if notice %>
-    <div class="ui container">
-      <p></p>
-      <div class="ui message">
-        <i class="close icon"></i>
-        <div class="header">
-          Notificação!
-        </div>
-        <p><%= notice %></p>
-      </div>
-    </div>
-    <% end %>
-
-    <% if alert %>
-    <div class="ui warning container">
-      <p></p>
-      <div class="ui message">
-        <i class="close icon"></i>
-        <div class="header">
-          Alerta!
-        </div>
-        <p><%= alert %></p>
-      </div>
-    </div>
-    <% end %>
-
-    <% if flash[:success] %>
-    <div class="ui positive container">
-      <p></p>
-      <div class="ui message">
-        <i class="close icon"></i>
-        <div class="header">
-          Sucesso!
-        </div>
-        <p><%= flash[:success] %></p>
-      </div>
-    </div>
-    <% end %>
-
     <%= yield %>
   </div>
 <% else %>
-  <% if notice %>
-  <div class="ui container">
-    <p></p>
-    <div class="ui message">
-      <i class="close icon"></i>
-      <div class="header">
-        Notificação!
-      </div>
-      <p><%= notice %></p>
-    </div>
-  </div>
-  <% end %>
-
-  <% if alert %>
-  <div class="ui warning container">
-    <p></p>
-    <div class="ui message">
-      <i class="close icon"></i>
-      <div class="header">
-        Alerta!
-      </div>
-      <p><%= alert %></p>
-    </div>
-  </div>
-  <% end %>
-
-  <% if flash[:success] %>
-  <div class="ui container">
-    <p></p>
-    <div class="ui positive message">
-      <i class="close icon"></i>
-      <div class="header">
-        Sucesso!
-      </div>
-      <p><%= flash[:success] %></p>
-    </div>
-  </div>
-  <% end %>
-  
-  <div class="hide-curso">
-    <%= yield %>
-  </div>
+  <%= yield %>
 <% end %>
 
 <script type="text/javascript">
