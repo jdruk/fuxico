@@ -6,7 +6,6 @@ class Theme < ActiveRecord::Base
 
 	belongs_to :father , :class_name => 'Theme', :foreign_key => 'father'
 
-
 	def list_parent
 		fathers = Array.new
 		f = self
