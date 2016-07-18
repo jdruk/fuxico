@@ -6,7 +6,27 @@
     <%= link_to 'Novo', new_group_path, class: 'item' %>
   </div>
 
-  <h3>Meus grupos</h3>
+  <h1>Meus grupos</h1>
+  <div class="ui cards">
+    <% current_user.my_groups.each do |group| %>
+    <div class="card">
+      <div class="content">
+        <div class="header">
+          <%= group.name %>
+        </div>
+      </div>
+      <div class="extra content">
+        <div class="ui tree buttons">
+          <%= link_to 'Entrar', group, class: 'ui basic green button' %>
+          <%= link_to 'Editar', edit_group_path(group.id), class: 'ui basic blue button' %>
+          <%= link_to 'Remover', group, method: :delete, data: { confirm: 'Você tem certeza?' }, class: 'ui basic red button' %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+  <h1>Grupos que faço parte</h1>
   <div class="ui cards">
     <% current_user.groups.each do |group| %>
     <div class="card">
@@ -16,18 +36,14 @@
         </div>
       </div>
       <div class="extra content">
-        <div class="ui tree buttons">
-          <%= link_to 'Entrar', '#', class: 'ui basic green button' %>
-          <%= link_to 'Editar', edit_group_path(group.id), class: 'ui basic blue button' %>
-          <%= link_to 'Remover', group, method: :delete, data: { confirm: 'Você tem certeza?' }, class: 'ui basic red button' %>
+        <div class="ui two buttons">
+          <%= link_to 'Entrar', group, class: 'ui basic green button' %>
+          <%= link_to 'Sair', leave_group_path(group), data: { confirm: 'Você tem certeza?' }, class: 'ui basic red button' %>
         </div>
       </div>
     </div>
     <% end %>
   </div>
-
-  <h3>Grupos que faço parte</h3>
-
 </div>
 
 <!-- <div class="ui cards">

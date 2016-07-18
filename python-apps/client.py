@@ -20,6 +20,6 @@ scroller.add(view)
 
 win.add(view)
 win.show_all()
-view.open("http://localhost:3000")
+view.open("http://192.168.1.15:3000")
 
 gtk.main()

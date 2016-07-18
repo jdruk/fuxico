@@ -1,6 +1,11 @@
-<h1>Editing Group</h1>
+<p></p>
 
-<%= render 'form' %>
+<div class="ui container">
+  <div class="ui menu"">
+    <a href="#" class="item active"><strong>Editando grupo</strong></a>
+    <%= link_to 'Salvar', '#', class: 'item save' %>
+    <%= link_to 'Voltar', groups_path, class: 'item' %>
+  </div>
 
-<%= link_to 'Show', @group %> |
-<%= link_to 'Back', groups_path %>
+  <%= render 'form' %>
+</div>

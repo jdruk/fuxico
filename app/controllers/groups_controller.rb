@@ -1,11 +1,20 @@
 class GroupsController < ApplicationController
-  before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_group, only: [:show, :edit, :update, :destroy, :leave]
+
+  def leave
+    u = @group.user_groups.where(user_id: current_user.id).first
+    u.destroy
+    redirect_to groups_url
+  rescue
+    redirect_to groups_url
+  end
 
   def index
     @groups = Group.all
   end
 
   def show
+    @message = Message.new(user_id: current_user.id, group_id: @group.id)
   end
 
   def new
@@ -54,6 +63,6 @@ class GroupsController < ApplicationController
     end
 
     def group_params
-      params.require(:group).permit(:name)
+      params.require(:group).permit(:name, user_ids: [])
     end
 end
