@@ -6,9 +6,6 @@ class Group < ActiveRecord::Base
   has_many :messages
 
   validates :validates_groups, acceptance: true
-  
-  def validates_groups	
-  	return UserGroup.where(group: self).count < 7 ? true : false
-  end
+  validates :user_groups length: { maximum: 7 }
 
 end
