@@ -8,12 +8,13 @@
 
   <div class="chat_container">
     <%= form_for(@message, remote: true, html: {class: 'ui form', id: 'new_message'}) do |f| %>
-      <div class="field">
-        <%= f.text_area :message, rows: 2, autofocus: true, class: 'msg_field' %>
+      <div class="inline field">
+        <%= f.text_field :message, size: 50, autofocus: true, class: 'msg_field' %>
+        <%= f.file_field :attached_file %>
         <%= f.hidden_field :user_id %>
         <%= f.hidden_field :group_id %>
-      </div>
         <%= f.submit 'Enviar', class: 'ui teal submit button' %>
+      </div>
     <% end %>
   </div>
   <hr>
