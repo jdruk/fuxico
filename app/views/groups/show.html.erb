@@ -7,7 +7,7 @@
   </div>
 
   <div class="chat_container">
-    <%= form_for(@message, remote: true, html: {class: 'ui form', id: 'new_message'}) do |f| %>
+    <%= form_for(@message, remote: true, html: {class: 'ui form', id: 'new_message', multipart: true}) do |f| %>
       <div class="inline field">
         <%= f.text_field :message, size: 50, autofocus: true, class: 'msg_field' %>
         <%= f.file_field :attached_file %>
