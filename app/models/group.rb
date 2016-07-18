@@ -6,6 +6,6 @@ class Group < ActiveRecord::Base
   has_many :messages
 
   validates :validates_groups, acceptance: true
-  validates :user_groups length: { maximum: 7 }
+  validates :user_groups, length: { maximum: 7 }
 
 end
