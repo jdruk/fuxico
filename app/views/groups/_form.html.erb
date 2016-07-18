@@ -1,25 +1,36 @@
-<%= form_for(@group) do |f| %>
-  <% if @group.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
+<div class="ui grid">
+  <div class="row">
+    <div class="sixteen wide tablet eight wide computer column">
 
-      <ul>
-      <% @group.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <%= form_for(@group, html: {class: 'ui form'}) do |f| %>
+        <% if @group.errors.any? %>
+          <div id="error_explanation">
+            <ul>
+            <% @group.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="field">
+          <%= f.text_field :name, placeholder: 'Nome do grupo' %>
+        </div>
+        <div class="field">
+          <% users = User.all.collect {|x| [x.name, x.id]} %>
+          <% users.reject! {|x| x[1] == current_user.id } %>
+          <%= f.label :user_id %>
+          <%= f.select :user_ids, users, {prompt: 'Selecione pessoas'}, multiple: true, class: "ui search dropdown" %>
+        </div>
       <% end %>
-      </ul>
     </div>
-  <% end %>
+  </div>
+</div>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<script type="text/javascript">
+  $('.save').click(function(){
+    $('form').submit();
+  });
+
+  $('.ui.search.dropdown').dropdown({ allowLabels:true});
+</script>

@@ -4,23 +4,73 @@
   <title>Fuxico</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'http://localhost:4000/faye.js' %>
+  <%= javascript_include_tag 'http://192.168.1.15:4000/faye.js' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
 <% if user_signed_in? %>
-  <p><%= current_user.name %></p>
-  <ul>
-    <li><%= link_to 'Grupos', groups_path %></li>
-    <li><%= link_to 'Salas', themes_path %></li>
-    <li><%= link_to 'Editar perfil', edit_user_registration_path %></li>
-    <li><%= link_to 'Sair', destroy_user_session_path, method: :delete %></li>
-  </ul>
+<div class="ui inverted top fixed menu">
+  <div class="right menu">
+    <div class="ui dropdown item">
+      <i class="user icon"></i> 
+      <%= current_user.name %>
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <%= link_to edit_user_registration_path, class: 'item' do %>
+        <i class="write icon"></i>
+        Editar perfil
+        <% end %>
+
+        <%= link_to destroy_user_session_path, method: :delete, class: 'item' do %>
+        <i class="sign out icon"></i>
+        Sair
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('.ui.dropdown').dropdown();
+  //$('.ui.sidebar').sidebar('toggle');
+</script>
+
+
+<div class="ui vertical inverted left visible sidebar menu overlay labeled icon">
+  <%= link_to root_path, class: 'item' do %>
+  <i class="home icon"></i>
+  Inicio
+  <% end %>
+
+  <%= link_to groups_path, class: 'item' do %>
+  <i class="users icon"></i>
+  Grupos
+  <% end %>
+
+  <%= link_to themes_path, class: 'item' do %>
+  <i class="comments outline icon"></i>
+  Salas de bate-papo
+  <% end %>
+</div>
 <% end %>
 
+<% if user_signed_in? %>
+  <div class="pusher" style="padding-left: 180px;">
+    <%= yield %>
+  </div>
+<% else %>
+  <%= yield %>
+<% end %>
 
-<%= yield %>
+<script type="text/javascript">
+  $('.message .close')
+  .on('click', function() {
+    $(this)
+      .closest('.message')
+      .transition('fade');
+  });
+</script>
 
 </body>
 </html>
