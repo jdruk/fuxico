@@ -6,3 +6,4 @@ var server = http.createServer(),
 
 bayeux.attach(server);
 server.listen(4000);
+console.log("Servidor iniciado...");

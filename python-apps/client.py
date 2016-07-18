@@ -10,7 +10,7 @@ win.connect("destroy", gtk.main_quit)
 #win.fullscreen()
 
 settings = view.get_settings()
-settings.set_property('enable-default-context-menu', False)
+settings.set_property('enable-default-context-menu', True)
 settings.set_property("enable-scripts", True)
 settings.set_property("javascript-can-open-windows-automatically", True)
 
@@ -20,6 +20,6 @@ scroller.add(view)
 
 win.add(view)
 win.show_all()
-view.open("http://192.168.1.15:3000")
+view.open("http://10.180.70.235:3000")
 
 gtk.main()

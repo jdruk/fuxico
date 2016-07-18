@@ -26,7 +26,7 @@
       <% else %>
       <p>
         <strong><%= message.user.name %> enviou o arquivo: </strong> 
-        <%= link_to "#{message.attached_file.file.identifier}", "#{message.attached_file.url}", target: 'blank' %>
+        <%= link_to "#{message.attached_file.file.identifier}", "http://localhost:5000?file_path=#{message.attached_file.url}", remote: true %>
         <br/><%= message.message %>
       </p>
       <% end %>
@@ -38,7 +38,7 @@
 <script>
   $(function() {
     // Create a new client to connect to Faye
-    var client = new Faye.Client('http://192.168.1.15:4000/faye');
+    var client = new Faye.Client('http://<%= host_chat_server %>:4000/faye');
 
     // Subscribe to the public channel
     var public_subscription = client.subscribe('/messages/public/group<%= @group.id %>', function(data) {
