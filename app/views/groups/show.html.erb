@@ -25,8 +25,9 @@
       <p><strong><%= message.user.name %>: </strong><%= message.message %></p>
       <% else %>
       <p>
-        <strong><%= message.user.name %> enviou o arquivo: </strong>
+        <strong><%= message.user.name %> enviou o arquivo: </strong> 
         <%= link_to "#{message.attached_file.file.identifier}", "#{message.attached_file.url}", target: 'blank' %>
+        <br/><%= message.message %>
       </p>
       <% end %>
     <% end %>
