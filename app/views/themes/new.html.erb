@@ -1,5 +1,11 @@
-<h1>New Theme</h1>
+<p></p>
 
-<%= render 'form' %>
+<div class="ui container">
+  <div class="ui menu"">
+    <a href="#" class="item active"><strong>Novo tema de sala</strong></a>
+    <%= link_to 'Salvar', '#', class: 'item save' %>
+    <%= link_to 'Voltar', themes_path, class: 'item' %>
+  </div>
 
-<%= link_to 'Back', themes_path %>
+  <%= render 'form' %>
+</div>

@@ -1,18 +1,59 @@
 <p></p>
 
+<div class="ui menu"">
+  <a href="#" class="item active"><strong>Salas de bate-papo</strong></a>
+  <%= link_to 'Novo', new_theme_path, class: 'item' %>
+</div>
+
+<%= link_to 'Inicio', themes_path %> >
 <% @theme.list_parent.each do |parent| %>
-<%= parent.name %> - 
+<%= link_to parent.name, parent %> >
 <% end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @theme.name %>
-</p>
+<h3>Sub-temas de salas</h3>
+<div class="ui cards">
+  <% @theme.themes.each do |theme| %>
+  <div class="card">
+    <div class="content">
+      <div class="header">
+        <%= theme.name %>
+      </div>
+    </div>
+    <div class="extra content">
+      <div class="ui tree buttons">
+        <%= link_to 'Selecionar', theme, class: 'ui basic green button' %>
+        <%= link_to 'Editar', edit_theme_path(theme), class: 'ui basic blue button' %>
+        <%= link_to 'Remover', theme, method: :delete, data: { confirm: 'Você tem certeza?' }, class: 'ui basic red button' %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
 
-<p>
-  <strong>Father:</strong>
-  <%= @theme.father %>
-</p>
+<h3>Salas de <%= @theme.name %></h3>
 
-<%= link_to 'Edit', edit_theme_path(@theme) %> |
-<%= link_to 'Back', themes_path %>
+<%= form_for(@room, html: {class: 'ui form'}) do |f| %>
+  <div class="inline field">
+    <%= f.text_field :name, placeholder: 'Nome da nova sal' %>
+    <%= f.hidden_field :theme_id %>
+    <%= f.submit 'Salvar', class: 'ui teal submit button' %>
+  </div>
+<% end %>
+
+<div class="ui cards">
+  <% @theme.rooms.each do |room| %>
+  <div class="card">
+    <div class="content">
+      <div class="header">
+        <%= room.name %>
+      </div>
+    </div>
+    <div class="extra content">
+      <div class="ui two buttons">
+        <%= link_to 'Selecionar', room, class: 'ui basic green button' %>
+        <%= link_to 'Remover', room, method: :delete, data: { confirm: 'Você tem certeza?' }, class: 'ui basic red button' %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>

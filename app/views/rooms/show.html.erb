@@ -1,14 +1,93 @@
-<p id="notice"><%= notice %></p>
+<p></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @room.name %>
-</p>
+<div class="ui container">
+  <div class="ui menu"">
+    <a href="#" class="item active"><strong><%= @room.name %></strong></a>
+    <%= link_to 'Voltar', theme_path(@room.theme), class: 'item' %>
+  </div>
 
-<p>
-  <strong>Theme:</strong>
-  <%= @room.theme %>
-</p>
+  <div id="alerts"></div>
 
-<%= link_to 'Edit', edit_room_path(@room) %> |
-<%= link_to 'Back', rooms_path %>
+  <div class="ui hidden info message">
+    <i class="close icon"></i>
+    <div class="header">
+      Notificação!
+    </div>
+    <ul class="list">
+      <li>O arquivo foi baixado para a pasta node-apps/</li>
+    </ul>
+  </div>
+
+  <div class="chat_container">
+    <%= form_for(@message, remote: true, html: {class: 'ui form', id: 'new_message', multipart: true}, authenticity_token: true) do |f| %>
+      <div class="inline field">
+        <%= f.text_field :message, size: 50, autofocus: true, class: 'msg_field', required: true %>
+        <%= f.file_field :attached_file %>
+        <%= f.hidden_field :user_id %>
+        <%= f.hidden_field :room_id %>
+        <%= f.submit 'Enviar', class: 'ui teal submit button' %>
+      </div>
+    <% end %>
+  </div>
+  <hr>
+
+  <div class="messages_box">
+    <% @room.messages.each do |message| %>
+      <% if message.attached_file.file.nil? %>
+      <p><strong><%= message.user.name %>: </strong><%= message.message %></p>
+      <% else %>
+      <p>
+        <strong><%= message.user.name %> enviou o arquivo: </strong> 
+        <%= link_to "#{message.attached_file.file.identifier}", "http://localhost:5000?file_path=#{message.attached_file.url}", remote: true, class: 'link_download' %>
+        <br/><%= message.message %>
+      </p>
+      <% end %>
+    <% end %>
+  </div>
+
+</div>
+
+
+
+<script>
+  $(function() {
+    // Create a new client to connect to Faye
+    var client = new Faye.Client('http://<%= host_chat_server %>:4000/faye');
+
+    // Subscribe to the public channel
+    var public_subscription = client.subscribe('/messages/public/room<%= @room.id %>', function(data) {
+      $('<p></p>').html(data.username + ": " + data.msg).appendTo('.messages_box');
+    });
+
+    // Our own private channel
+    var private_subscription = client.subscribe('/messages/private/user<%= current_user.id %>', function(data) {
+      $('<p></p>').addClass('private').html(data.username + ": " + data.msg).appendTo('.messages_box');
+    });
+ 
+    // Handle form submissions and post messages to faye
+    $('#new_message').submit(function(){
+      // Publish the message to the public channel
+      client.publish('/messages/public/room<%= @room.id %>', {
+        username: '<%= current_user.name %>',
+        msg: $('.msg_field').val()
+      });
+ 
+      // Clear the message box
+      // $('.msg_field').val('');
+ 
+      // Don't actually submit the form, otherwise the page will refresh.
+      //return false;
+    });
+  });
+
+  // exibir mensagem ao baixar arquivo
+  $('.link_download').click(function(){
+    $('.info.message').fadeIn();
+    //alert('Arquivo baixado na pasta node-apps/');
+  });
+
+  $('.message .close').click(function(){
+    $('.info.message').fadeOut();
+  });
+
+</script>

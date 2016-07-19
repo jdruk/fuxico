@@ -1,25 +1,37 @@
-<%= form_for(@theme) do |f| %>
-  <% if @theme.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@theme.errors.count, "error") %> prohibited this theme from being saved:</h2>
+<div class="ui grid">
+  <div class="row">
+    <div class="sixteen wide tablet eight wide computer column">
 
-      <ul>
-      <% @theme.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <%= form_for(@theme, html: {class: 'ui form'}) do |f| %>
+        <% if @theme.errors.any? %>
+          <div id="error_explanation">
+            <ul>
+            <% @theme.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="field">
+          <%= f.text_field :name, placeholder: 'Nome', autofocus: true %>
+        </div>
+        <div class="field">
+          <% themes = Theme.all.collect {|x| [x.name, x.id]} %>
+          <% themes.reject! {|x| x[1] == @theme.id } %>
+
+          <%= f.select :father, themes, {prompt: 'Selecione um tema pai'}, class: "ui search dropdown" %>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :father %><br>
-    <%= f.number_field :father %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
+
+<script type="text/javascript">
+  $('.save').click(function(){
+    $('form').submit();
+  });
+
+  $('.ui.search.dropdown').dropdown({ allowLabels:true});
+</script>

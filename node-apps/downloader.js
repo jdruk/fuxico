@@ -9,7 +9,7 @@ app.set('port', process.env.PORT || 5000);
 
 app.get('/',function(request, response, next){
   console.log("baixando " + request.query.file_path + "...");
-  exec('wget http://10.180.70.235:3000' + request.query.file_path);
+  exec('wget http://192.168.1.14:3000' + request.query.file_path);
   console.log("download completo!");
 });
 
