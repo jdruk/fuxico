@@ -1,4 +1,8 @@
-<p id="notice"><%= notice %></p>
+<p></p>
+
+<% @theme.list_parent.each do |parent| %>
+<%= parent.name %> - 
+<% end %>
 
 <p>
   <strong>Name:</strong>
