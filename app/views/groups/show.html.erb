@@ -6,6 +6,18 @@
     <%= link_to 'Voltar', groups_path, class: 'item' %>
   </div>
 
+  <div id="alerts"></div>
+
+  <div class="ui hidden info message">
+    <i class="close icon"></i>
+    <div class="header">
+      Notificação!
+    </div>
+    <ul class="list">
+      <li>O arquivo foi baixado para a pasta node-apps/</li>
+    </ul>
+  </div>
+
   <div class="chat_container">
     <%= form_for(@message, remote: true, html: {class: 'ui form', id: 'new_message', multipart: true}, authenticity_token: true) do |f| %>
       <div class="inline field">
@@ -26,7 +38,7 @@
       <% else %>
       <p>
         <strong><%= message.user.name %> enviou o arquivo: </strong> 
-        <%= link_to "#{message.attached_file.file.identifier}", "http://localhost:5000?file_path=#{message.attached_file.url}", remote: true %>
+        <%= link_to "#{message.attached_file.file.identifier}", "http://localhost:5000?file_path=#{message.attached_file.url}", remote: true, class: 'link_download' %>
         <br/><%= message.message %>
       </p>
       <% end %>
@@ -34,6 +46,8 @@
   </div>
 
 </div>
+
+
 
 <script>
   $(function() {
@@ -65,4 +79,15 @@
       //return false;
     });
   });
+
+  // exibir mensagem ao baixar arquivo
+  $('.link_download').click(function(){
+    $('.info.message').fadeIn();
+    //alert('Arquivo baixado na pasta node-apps/');
+  });
+
+  $('.message .close').click(function(){
+    $('.info.message').fadeOut();
+  });
+
 </script>
